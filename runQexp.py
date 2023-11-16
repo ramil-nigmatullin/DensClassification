@@ -46,7 +46,11 @@ class QuantumCAChain(CouplingMPOModel, NearestNeighborModel):
 
     def init_terms(self, model_params):
         Coup = model_params.get('g', 0.)
-        gamma = model_params.get('gama', 0.)
+        gamma = model_params.get('gamma', 0.)
+        print('gamma')
+        print(gamma)
+        print('g')
+        print(g)
         
         self.add_multi_coupling((-0.75*1j)*gamma,[('Id',[0],0),('Id',[1],0)])
         self.add_multi_coupling((0.5*1j)*gamma,[('Id',[0],0),('Sz0 Sz1',[1],0)])
@@ -80,8 +84,8 @@ def measurement(eng, mesArr):
 ## use 'normal' mode to run a small dt simulation to evaluate the rate of convergence 
 ## towards the steady state
 
-L = 30        # Number of sites
-mode = "ss"
+L = 10        # Number of sites
+mode = "normal"
 
 ##########################################
 ## Create a parameter files
@@ -97,14 +101,18 @@ param= {
 outname = "qexp_params.pkl"
 pickle.dump(param, open(outname, 'wb'))
 
+
+
 param= {
         "dt": 0.1,
-        "nsteps": 100,
+        "nsteps": 200,
         "writefreq": 20,
         "bondCut" : 100,
         "g" : -1,
         "gamma" : 0.6
 }
+
+
 
 outname = "q_ss_exp_params.pkl"
 pickle.dump(param, open(outname, 'wb'))
